@@ -4,7 +4,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 import jwt
 from jwt import PyJWTError
-from app.token.token import create_access_token,verify_token,create_refresh_token
+from app.token.token import create_access_token,verify_token,create_refresh_token,get_role
 from app.core.config import settings
 
 
@@ -15,11 +15,13 @@ token = APIRouter(
 )
 
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/sign-in")
 
 @token.get("/protected")
 async def veryfi_token(token:str =Depends(oauth2_scheme)):
     verify_user_token = verify_token(token=token)
+    
+    
     return verify_user_token
 
 @token.post("/refresh")
@@ -52,3 +54,10 @@ async def refresh_access_token(refresh_token: str = Depends(oauth2_scheme)):
             detail="Invalid refresh token",
             headers={"WWW-Authenticate": "Bearer"},
         )
+    
+@token.get("/get_role")
+async def get_role(token:str =Depends(oauth2_scheme)):
+    verify_role = get_role(token=token)
+    
+    
+    return {"role": verify_role}

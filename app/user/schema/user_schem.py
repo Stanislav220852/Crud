@@ -11,4 +11,5 @@ class UserSchem(BaseModel):
 
 class UserBase(UserSchem):
     id:int
+    role:str
     

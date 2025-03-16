@@ -1,6 +1,9 @@
 from fastapi import APIRouter
 from app.product.service.product_crud import ProductServices
 from app.product.schema.product_schem import ProductSchem 
+from app.minio.router.minio_router import upload_file
+from fastapi import UploadFile,File
+from app.minio.router.minio_router import upload_file
 
 product_router = APIRouter(
     prefix="/product",

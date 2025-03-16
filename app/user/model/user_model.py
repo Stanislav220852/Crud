@@ -10,3 +10,4 @@ class UserModel(Base):
     password:Mapped[str]
     email:Mapped[str]
     product: Mapped["ProductModel"] = relationship(back_populates="user")
+    role:Mapped[str] = "user"

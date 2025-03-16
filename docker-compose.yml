@@ -1,4 +1,4 @@
-version: '3.8'
+
 services:
   postgres:
     image: postgres:13
@@ -12,7 +12,8 @@ services:
       - 5432:5432
     env_file:
       - .env
-      
+
+
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin
@@ -24,3 +25,24 @@ services:
       - 8080:80
     env_file:
       - .env
+  
+  minio:
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio-data:/data
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: miniopassword
+    command: server --console-address ":9001" /data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    restart: unless-stopped
+
+volumes:
+  minio-data:

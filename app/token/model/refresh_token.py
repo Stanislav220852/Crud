@@ -1,8 +1,7 @@
 from app.db.base import Base
-
-
-
+from sqlalchemy.orm import Mapped
 
 
 class RefreshTokenModel(Base):
-    token:str
+    token:Mapped[str]
+    user_id:Mapped[int]

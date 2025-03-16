@@ -18,7 +18,12 @@ class Settings(BaseSettings):
     SECRET_KEY:str = os.getenv("SECRET_KEY")
     ALGORITHM:str = os.getenv("ALGORITHM")
     ACCESS_TOKEN_EXPIRE_MINUTES:int = os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES")
-
+    
+    #minio
+    MINIO_ENDPOINT:str = os.getenv("MINIO_ENDPOINT")
+    MINIO_ACCES_KEY:str = os.getenv("MINIO_ACCES_KEY")
+    MINIO_SECRET_KEY:str = os.getenv("MINIO_SECRET_KEY")
+    MINIO_PORT:str = os.getenv("MINIO_PORT")
     class Config:
         env_file = ".env"
 
